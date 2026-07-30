@@ -31,6 +31,7 @@
 
     zenburn-theme
     spacemacs-theme
+    doom-themes
 
     paredit
     rainbow-delimiters
@@ -38,8 +39,8 @@
     geiser-guile
     racket-mode
 
-    elpy
-    blacken
+                                        ;elpy
+                                        ;blacken
 
     flycheck
 
@@ -146,52 +147,38 @@ appropriate value in order for this function to work."
 
 ;;; =============================== VISUALS ====================================
 
-(require 'zenburn-theme)
+(require 'modus-themes)
 (setq custom-safe-themes t)
-(load-theme 'zenburn)
+(load-theme 'modus-vivendi)
+
 (set-face-attribute 'default nil
                     :font "Fira Code 11"
                     :height 110)
+
 (set-face-attribute 'cursor nil
                     :background "#FF006D")
 
 ;;; =========================== WHITESPACE MODE ================================
 
+(require 'whitespace)
+
 (setq-default whitespace-style
               '(face
-                spaces
                 empty
                 tabs
                 newline
                 trailing
-                space-mark
                 tab-mark
                 newline-mark))
 
-;; Whitespace color corrections
+(with-eval-after-load 'whitespace
+  (set-face-attribute 'whitespace-tab nil
+                      :inherit 'shadow
+                      :background nil)
 
-(custom-set-faces
- `(whitespace-space
-   ((t (:foreground "#4F4F4F" :background nil))))
- `(whitespace-tab
-   ((t (:foreground "#4F4F4F" :background nil))))
- `(whitespace-newline
-   ((t (:foreground "#4F4F4F" :background nil))))
-
- `(whitespace-missing-newline-at-eof
-   ((t (:foreground "#2791d8" :background "#AB54A9"))))
- `(whitespace-space-after-tab
-   ((t (:foreground "#2791d8" :background "#AB54A9"))))
- `(whitespace-space-before-tab
-   ((t (:foreground "#2791d8" :background "#AB54A9"))))
- `(whitespace-trailing
-   ((t (:foreground "#2791d8" :background "#AB54A9")))))
-
-(setq whitespace-display-mapping
-      '((space-mark 32 [183] [46])
-        (newline-mark ?\n [172 ?\n] [36 ?\n])
-        (newline-mark ?\r [182] [35])
-        (tab-mark ?\t [187 ?\t] [62 ?\t])))
+  (set-face-attribute 'whitespace-newline nil
+                      :inherit 'shadow
+                      :background nil))
 
 (setq-default whitespace-action
               '(cleanup auto-cleanup))
@@ -355,7 +342,7 @@ relies on `fill-column'."
   (make-section-comment name "/* " " */"))
 
 (setq auto-mode-alist (append '(("\\.pl$" . prolog-mode))
-                               auto-mode-alist))
+                              auto-mode-alist))
 
 (add-hook 'prolog-mode-hook
           (lambda ()

@@ -6,6 +6,7 @@
 /racket-mode
 /eshell
 /eln-cache
+/games
 
 # Suffices
 *.bak
